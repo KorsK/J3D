@@ -48,7 +48,6 @@ public class j3dLoadSet {
 				String st = setMapLines.get(0);
 				for (int i = 0; i < st.length(); i++) {
 					setMapGrid.get(y).set(i,Integer.parseInt(String.valueOf(st.charAt(i))));
-					
 				}
 				setMapLines.remove(0);
 			}
