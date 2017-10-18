@@ -58,7 +58,7 @@ public class j3dMain extends JFrame implements KeyListener{
 		
 		viewer = new Viewer(canvas);
 		view = viewer.getView();
-		view.setBackClipDistance(10);
+		view.setBackClipDistance(100);
 		
 		
 		viewP = new ViewingPlatform();
@@ -80,9 +80,9 @@ public class j3dMain extends JFrame implements KeyListener{
 		u.getCanvas().addKeyListener(this);
 		g = new BranchGroup();
 		
-		xDim = 50;
-		yDim = 50;
-		zDim = 50;
+		xDim = 20;
+		yDim = 15;
+		zDim = 7;
 		
 		//j3dLoadHills.loadHills(xDim,yDim,zDim, 25, 10, 5, 1, 3, 3, 3, 1, 1, 1, 1, g);
 		j3dLoadSet.loadSet(xDim, yDim, zDim, g);

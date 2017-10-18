@@ -40,8 +40,9 @@ public class j3dLoadSet {
 			setMapLines.add(s); 
 		}
 		br.close();
-		
-	
+		while(setMapLines.contains("-")){
+			setMapLines.remove("-");
+		}
 		for(int z = 0; z < zDims; z++){
 			ArrayList<ArrayList<Integer>> setMapGrid = zero2dArr(xDims,yDims);
 			for(int y = 0; y < yDims; y++){
@@ -52,7 +53,7 @@ public class j3dLoadSet {
 				setMapLines.remove(0);
 			}
 			collArr.add(setMapGrid);
-			setMapLines.remove(0);
+			//setMapLines.remove(0);
 		}
 		
 		
