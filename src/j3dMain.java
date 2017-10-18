@@ -1,4 +1,4 @@
-000import java.awt.BorderLayout;
+import java.awt.BorderLayout;
 import java.awt.GraphicsConfiguration;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
