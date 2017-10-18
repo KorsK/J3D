@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import javax.media.j3d.BranchGroup;
 
 import org.apache.commons.math3.distribution.NormalDistribution;
-
+@SuppressWarnings("unused")
 public class j3dLoadTrees {
 
 	static ArrayList<ArrayList<ArrayList<Integer>>> collArr;
