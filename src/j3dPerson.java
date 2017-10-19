@@ -67,16 +67,20 @@ public class j3dPerson{
 		viewt3d = new Transform3D();
 	}
 
-	public void update() {
+	public void updateThread1() {
 		collisionCoords.set((int)(playerCoords.getX()+1)/2,(int) (playerCoords.getY()-2)/2, (int)(playerCoords.getZ()+1)/2);
 		checkCollisions();
 		YUpdate();
+	}
+	public void updateThread2(){
 		viewUpdate();
 		KeyUpdate();
+	}
+	
+	public void updateThread3(){
 		j3dMain.setViewt3d(viewt3d);
 		j3dMain.setViewTG(viewTrans);
 	}
-	
 	
 	public void checkCollisions(){
 		try{

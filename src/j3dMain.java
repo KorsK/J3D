@@ -44,8 +44,12 @@ public class j3dMain extends JFrame implements KeyListener{
 		super();
 		init();
 		running = true;
-		Thread t = new Thread(new running());
-		t.start();
+		Thread t1 = new Thread(new runningT1());
+		t1.start();
+		Thread t2 = new Thread(new runningT2());
+		t2.start();
+		Thread t3 = new Thread(new runningT3());
+		t3.start();
 	}
 	
 	public void init() throws Exception{
@@ -80,28 +84,50 @@ public class j3dMain extends JFrame implements KeyListener{
 		u.getCanvas().addKeyListener(this);
 		g = new BranchGroup();
 		
-		xDim = 20;
-		yDim = 15;
-		zDim = 7;
+		xDim = 50;
+		yDim = 55;
+		zDim = 75;
 		
-		//j3dLoadHills.loadHills(xDim,yDim,zDim, 25, 10, 5, 1, 3, 3, 3, 1, 1, 1, 1, g);
-		j3dLoadSet.loadSet(xDim, yDim, zDim, g);
+		j3dLoadHills.loadHills(xDim,yDim,zDim, 25, 10, 5, 1, 3, 3, 3, 1, 1, 1, 1, g);
+		//j3dLoadSet.loadSet(xDim, yDim, zDim, g);
 		
 		player = new j3dPerson(viewP,yDim,1);
 		u.addBranchGraph(g);
 		
 	}
 	
-	public class running implements Runnable{
+	public class runningT1 implements Runnable{
 		public void run(){
 			while(running){
 				try{
 					Thread.sleep(30);
-					player.update();
+					player.updateThread1();
 				}
 				catch(Exception e){
 					
 				}
+			}
+		}
+	}
+	
+	public class runningT2 implements Runnable{
+		public void run(){
+			while (running){
+				try{
+					Thread.sleep(30);
+					player.updateThread2();
+				}catch(Exception e){}
+			}
+		}
+	}
+	
+	public class runningT3 implements Runnable{
+		public void run(){
+			while (running){
+				try{
+					Thread.sleep(30);
+					player.updateThread3();
+				}catch(Exception e){}
 			}
 		}
 	}
