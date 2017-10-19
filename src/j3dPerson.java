@@ -54,7 +54,7 @@ public class j3dPerson{
 		
 		sensitivityX=sensitivityY=20;
 		
-		playerCoords = new Point3d(10,100,4);
+		playerCoords = new Point3d(20,100,50);
 		playerLookAt = new Point3d(0,0,0);
 		playerUp = new Vector3d(0,1,0);
 		collisionCoords = new Vector3d();
