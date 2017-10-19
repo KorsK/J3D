@@ -87,7 +87,7 @@ public class j3dMain extends JFrame implements KeyListener{
 		//j3dLoadHills.loadHills(xDim,yDim,zDim, 25, 10, 5, 1, 3, 3, 3, 1, 1, 1, 1, g);
 		j3dLoadSet.loadSet(xDim, yDim, zDim, g);
 		
-		player = new j3dPerson(viewP,yDim,0);
+		player = new j3dPerson(viewP,yDim,1);
 		u.addBranchGraph(g);
 		
 	}

@@ -73,7 +73,7 @@ public class exampleCode{
 		Color3f blue = new Color3f(0.1f,0.07f,0.6f);
 		
 		//the material is how the box will appear with no textures (blue)
-		// as defined earlier, the texture will modulate (look that up ;) ) with
+		// as defined earlier, the texture will modulate with
 		//the current texture of the box (blue)
 		
 		starApp.setMaterial(new Material(blue,blue,blue,blue,1f));

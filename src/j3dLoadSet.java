@@ -56,38 +56,25 @@ public class j3dLoadSet {
 			//setMapLines.remove(0);
 		}
 		
-		
-		
-		
-		
-		
 		for(int z = 0; z < zDims; z++){
 			for(int y = 0; y < yDims; y++){
 				for(int x = 0; x < xDims; x++){
 					if(collArr.get(z).get((yDims-1)-y).get(x)==1){
-						
 						Box b = new Box(1,1,1,grassApp.getFlags(),grassApp.getApp());
-						
 						Transform3D boxTrans = new Transform3D();
 						boxTrans.setTranslation(new Vector3d(x*2,y*2,z*2));
-						
 						TransformGroup boxTG = new TransformGroup();
 						boxTG.setTransform(boxTrans);
 						boxTG.addChild(b);
-						
 						group.addChild(boxTG);
 					}
 					else if(collArr.get(z).get((yDims-1)-y).get(x)==2){
-						
 						Box b = new Box(1,1,1,woodApp.getFlags(),woodApp.getApp());
-						
 						Transform3D boxTrans = new Transform3D();
 						boxTrans.setTranslation(new Vector3d(x*2,y*2,z*2));
-						
 						TransformGroup boxTG = new TransformGroup();
 						boxTG.setTransform(boxTrans);
 						boxTG.addChild(b);
-						
 						group.addChild(boxTG);
 					}
 					else if(collArr.get(z).get((yDims-1)-y).get(x)==3){

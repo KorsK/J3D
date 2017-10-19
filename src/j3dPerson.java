@@ -47,17 +47,14 @@ public class j3dPerson{
 		
 		
 		jumping = alreadyJumped = false;
-		
 		yDim = y;
-		
-		
 		try {
 			r = new Robot();
 		} catch (AWTException e) {}
 		
 		sensitivityX=sensitivityY=20;
 		
-		playerCoords = new Point3d(30,100,50);
+		playerCoords = new Point3d(10,100,4);
 		playerLookAt = new Point3d(0,0,0);
 		playerUp = new Vector3d(0,1,0);
 		collisionCoords = new Vector3d();
