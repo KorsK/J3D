@@ -2,7 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/j3d"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/dist"/>
+	<classpathentry kind="lib" path="libs/commons-math3-3.0.jar"/>
+	<classpathentry kind="lib" path="libs/j3dutils.jar"/>
+	<classpathentry kind="lib" path="libs/vecmath.jar"/>
+	<classpathentry kind="lib" path="libs/j3dcore.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
