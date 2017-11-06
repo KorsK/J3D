@@ -33,11 +33,14 @@ public class j3dPerson{
 	private double dy, maxY;
 	private ArrayList<ArrayList<ArrayList<Integer>>> Arr;
 	
-	public j3dPerson(ViewingPlatform vP, int y, int Maptype){
+	private boolean robotActive;
+	
+	public j3dPerson(ViewingPlatform vP, int y, int Maptype,boolean robotActive){
 		
 		dy = 0;
 		maxY = 1.0;
-	
+		this.robotActive = robotActive;
+		
 		if(Maptype ==0){
 			Arr = j3dLoadHills.getColl();
 		}
@@ -125,8 +128,10 @@ public class j3dPerson{
 		
 		mouseY = MouseInfo.getPointerInfo().getLocation().y;
 		mouseX = MouseInfo.getPointerInfo().getLocation().x;
-		r.mouseMove(200, 200);
-	
+		if(robotActive){
+			r.mouseMove(200, 200);
+		}
+
 		double deltaX = (mouseX-200) / sensitivityX;
 		double deltaY = (mouseY-200) / sensitivityY;
 		
