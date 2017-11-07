@@ -167,15 +167,15 @@ public class j3dPerson{
 		viewTrans.setTransform(viewt3d);
 	}
 	
-public Vector3d getCollPos(Vector3d vec1){
+	public Vector3d getCollPos(Vector3d vec1){
+			
+			int collX = (int) ((vec1.getX()+1)/2);
+			int collY = (int) ((vec1.getY()-2)/2);
+			int collZ = (int) ((vec1.getZ()+1)/2);
+			Vector3d vec2 = new Vector3d(new Point3d(collX,collY,collZ));
+			return vec2;
+		}
 		
-		int collX = (int) ((vec1.getX()+1)/2);
-		int collY = (int) ((vec1.getY()-2)/2);
-		int collZ = (int) ((vec1.getZ()+1)/2);
-		Vector3d vec2 = new Vector3d(new Point3d(collX,collY,collZ));
-		return vec2;
-	}
-	
 	
 	public void movePerson(int dim, double scale, int yDims){
 		boolean checkNext;
@@ -250,6 +250,8 @@ public Vector3d getCollPos(Vector3d vec1){
 			}
 		
 	}
+	
+	public ArrayList<ArrayList<ArrayList<Integer>>> getCollisionArr(){return Arr;}
 	
 	
 	public void keyPressed(KeyEvent e) {
