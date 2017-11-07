@@ -26,7 +26,7 @@ public class j3dMain extends JFrame implements KeyListener{
 
 	private SimpleUniverse u;
 	private BranchGroup g;
-	private boolean running,robotActive;
+	private boolean running,robotActive,cameraActive;
 	private Viewer viewer;
 	private View view;
 	private ViewingPlatform viewP;
@@ -39,12 +39,13 @@ public class j3dMain extends JFrame implements KeyListener{
 	int yDim;
 	int zDim;
 	
-	public j3dMain(boolean robotActive) throws Exception{
+	public j3dMain(boolean robotActive,boolean cameraActive) throws Exception{
 		
 		super();
 		init();
 		running = true;
 		this.robotActive = robotActive;
+		this.cameraActive = cameraActive;
 		Thread t1 = new Thread(new running());
 		t1.start();
 	}
@@ -88,7 +89,7 @@ public class j3dMain extends JFrame implements KeyListener{
 		j3dLoadHills.loadHills(xDim,yDim,zDim, 25, 10, 5, 1, 3, 3, 3, 1, 1, 1, 1, g);
 		//j3dLoadSet.loadSet(xDim, yDim, zDim, g);
 		
-		player = new j3dPerson(viewP,yDim,0,robotActive);
+		player = new j3dPerson(viewP,yDim,0,robotActive,cameraActive);
 		u.addBranchGraph(g);
 		
 	}
@@ -116,7 +117,7 @@ public class j3dMain extends JFrame implements KeyListener{
 	
 	
 	public static void main(String[] args) throws Exception {
-		j3dMain frame = new j3dMain(true);
+		j3dMain frame = new j3dMain(true,true);
 		frame.setSize(500,500);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);

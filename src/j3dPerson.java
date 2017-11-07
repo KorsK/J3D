@@ -33,13 +33,14 @@ public class j3dPerson{
 	private double dy, maxY;
 	private ArrayList<ArrayList<ArrayList<Integer>>> Arr;
 	
-	private boolean robotActive;
+	private boolean robotActive,cameraActive;
 	
-	public j3dPerson(ViewingPlatform vP, int y, int Maptype,boolean robotActive){
+	public j3dPerson(ViewingPlatform vP, int y, int Maptype,boolean robotActive,boolean cameraActive){
 		
 		dy = 0;
 		maxY = 1.0;
 		this.robotActive = robotActive;
+		this.cameraActive = cameraActive;
 		
 		if(Maptype ==0){
 			Arr = j3dLoadHills.getColl();
@@ -74,7 +75,10 @@ public class j3dPerson{
 		collisionCoords.set((int)(playerCoords.getX()+1)/2,(int) (playerCoords.getY()-2)/2, (int)(playerCoords.getZ()+1)/2);
 		checkCollisions();
 		YUpdate();
-		viewUpdate();
+		if(cameraActive){
+			viewUpdate();
+		}
+		
 		KeyUpdate();
 		j3dMain.setViewt3d(viewt3d);
 		j3dMain.setViewTG(viewTrans);
