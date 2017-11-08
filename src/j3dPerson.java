@@ -252,7 +252,7 @@ public class j3dPerson{
 	}
 	
 	public ArrayList<ArrayList<ArrayList<Integer>>> getCollisionArr(){return Arr;}
-	
+	public Vector3d getCollisionPosition(){return collisionCoords;}
 	
 	public void keyPressed(KeyEvent e) {
 		int k = e.getKeyCode();
