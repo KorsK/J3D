@@ -62,6 +62,12 @@ public class j3dPerson{
 		viewTrans = vP.getViewPlatformTransform();
 		viewt3d = new Transform3D();
 	}
+	
+	public ArrayList<ArrayList<ArrayList<Integer>>> getLocalCollArr(Vector3d position,int x,int y, int z){
+		ArrayList<ArrayList<ArrayList<Integer>>> ret = new ArrayList<ArrayList<ArrayList<Integer>>>();
+		
+		return ret;
+	}
 
 	public void update() {
 		collisionCoords.set((int)(playerCoords.getX()+1)/2,(int) (playerCoords.getY()-2)/2, (int)(playerCoords.getZ()+1)/2);
@@ -173,15 +179,10 @@ public class j3dPerson{
 		boolean checkNext;
 		switch(dim){
 		case 1:
-	
 			Vector3d nextMovement = new Vector3d(playerCoords.getX()+Math.cos(viewCircleTheta)*scale*3,playerCoords.getY(),
 			playerCoords.getZ()+Math.sin(viewCircleTheta)*scale*3);
 			Vector3d collNext = getCollPos(nextMovement);
-			
-			
-		
 			try{
-				
 				 if(Arr.get((int) collNext.getZ()).get((int) ((yDims-1)-collNext.getY())).get((int) collNext.getX())!=0){
 			    	checkNext = false;
 			    }
@@ -192,17 +193,12 @@ public class j3dPerson{
 			catch(IndexOutOfBoundsException e){
 				checkNext = true;
 			}
-	
-			
-			if(checkNext){
-			
-				
+			if(checkNext){	
 				playerCoords.add(new Point3d(Math.cos((viewCircleTheta))*scale,0,Math.sin((viewCircleTheta))*scale));
 				viewt3d.lookAt(playerCoords, playerLookAt, playerUp);
 				viewt3d.invert();
 				viewt3d.setTranslation(new Vector3d(playerCoords.getX(),playerCoords.getY(),playerCoords.getZ()));
-				viewTrans.setTransform(viewt3d);
-				
+				viewTrans.setTransform(viewt3d);	
 			}
 			break;
 		
