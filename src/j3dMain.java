@@ -24,6 +24,9 @@ import com.sun.j3d.utils.universe.ViewingPlatform;
 @SuppressWarnings("serial")
 public class j3dMain extends JFrame implements KeyListener{
 
+	public static final int LOADSET = 0;
+	public static final int LOADHILLS = 1;
+	
 	private SimpleUniverse u;
 	private BranchGroup g;
 	private boolean running,robotActive,cameraActive;
@@ -35,19 +38,23 @@ public class j3dMain extends JFrame implements KeyListener{
 	private static Transform3D viewt3d;
 	@SuppressWarnings("unused")
 	private static TransformGroup viewTG;
-	int xDim;
-	int yDim;
-	int zDim;
+	private int xDim,yDim,zDim;
+	private int loadType;
 	
-	public j3dMain(boolean robotActive,boolean cameraActive) throws Exception{
+	
+	public j3dMain(int x, int y, int z, int loadType, boolean robotActive,boolean cameraActive) throws Exception{
 		
 		super();
-		init();
+		xDim = x;
+		yDim = y;
+		zDim = z;
+		this.loadType = loadType;
 		running = true;
 		this.robotActive = robotActive;
 		this.cameraActive = cameraActive;
 		Thread t1 = new Thread(new running());
 		t1.start();
+		init();
 	}
 	
 	public void init() throws Exception{
@@ -82,20 +89,12 @@ public class j3dMain extends JFrame implements KeyListener{
 		u.getCanvas().addKeyListener(this);
 		g = new BranchGroup();
 		
-//		xDim = 50;
-//		yDim = 50;
-//		zDim = 50;
-		
-		xDim = 20;
-		yDim = 15;
-		zDim = 7;
-		
-		//j3dLoadHills.loadHills(xDim,yDim,zDim, 25, 10, 5, 1, 3, 3, 3, 1, 1, 1, 1, g);
-		j3dLoadSet.loadSet(xDim, yDim, zDim, g);
-		
-		
-		//0 is loadhills, 1 is loadset
-		player = new j3dPerson(viewP,yDim,1,robotActive,cameraActive);
+		if(loadType == LOADHILLS){
+			j3dLoadHills.loadHills(xDim,yDim,zDim, 25, 10, 5, 1, 3, 3, 3, 1, 1, 1, 1, g);
+		}else{
+			j3dLoadSet.loadSet(xDim, yDim, zDim, g);
+		}
+		player = new j3dPerson(viewP,yDim,loadType,robotActive,cameraActive);
 		u.addBranchGraph(g);
 		
 	}
@@ -124,7 +123,8 @@ public class j3dMain extends JFrame implements KeyListener{
 	public j3dPerson getPerson(){return player;}
 	
 	public static void main(String[] args) throws Exception {
-		j3dMain frame = new j3dMain(true,true);
+		j3dMain frame = new j3dMain(50,50,50,j3dMain.LOADHILLS,true,true);
+		//j3dMain frame = new j3dMain();
 		frame.setSize(500,500);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);

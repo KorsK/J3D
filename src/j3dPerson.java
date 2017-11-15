@@ -42,7 +42,7 @@ public class j3dPerson{
 		this.robotActive = robotActive;
 		this.cameraActive = cameraActive;
 		
-		if(Maptype ==0){
+		if(Maptype == j3dMain.LOADHILLS){
 			Arr = j3dLoadHills.getColl();
 		}
 		else{
