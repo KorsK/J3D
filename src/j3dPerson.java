@@ -35,21 +35,13 @@ public class j3dPerson{
 	
 	private boolean robotActive,cameraActive;
 	
-	public j3dPerson(ViewingPlatform vP, int y, int Maptype,boolean robotActive,boolean cameraActive){
+	public j3dPerson(ViewingPlatform vP, int y, boolean robotActive,boolean cameraActive){
 		
 		dy = 0;
 		maxY = 1.0;
 		this.robotActive = robotActive;
 		this.cameraActive = cameraActive;
-		
-		if(Maptype == j3dMain.LOADHILLS){
-			Arr = j3dLoadHills.getColl();
-		}
-		else{
-			Arr = j3dLoadSet.getColl();
-		}
-		
-		
+		Arr = j3dLoadMap.getColl();
 		jumping = alreadyJumped = false;
 		yDim = y;
 		try {

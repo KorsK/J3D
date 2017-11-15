@@ -90,11 +90,11 @@ public class j3dMain extends JFrame implements KeyListener{
 		g = new BranchGroup();
 		
 		if(loadType == LOADHILLS){
-			j3dLoadHills.loadHills(xDim,yDim,zDim, 25, 10, 5, 1, 3, 3, 3, 1, 1, 1, 1, g);
+			j3dLoadMap.loadHills(xDim,yDim,zDim, 25, 10, 5, 1, 3, 3, 3, 1, 1, 1, 1, g);
 		}else{
-			j3dLoadSet.loadSet(xDim, yDim, zDim, g);
+			j3dLoadMap.loadSet(xDim, yDim, zDim, g);
 		}
-		player = new j3dPerson(viewP,yDim,loadType,robotActive,cameraActive);
+		player = new j3dPerson(viewP,yDim,robotActive,cameraActive);
 		u.addBranchGraph(g);
 		
 	}
