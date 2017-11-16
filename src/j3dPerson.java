@@ -65,7 +65,14 @@ public class j3dPerson{
 	
 	public ArrayList<ArrayList<ArrayList<Integer>>> getLocalCollArr(Vector3d position,int x,int y, int z){
 		ArrayList<ArrayList<ArrayList<Integer>>> ret = new ArrayList<ArrayList<ArrayList<Integer>>>();
-		
+		for (int i = (int)position.getZ()-z;i < position.getZ()+z;i++){
+			ArrayList<ArrayList<Integer>> tempArr = new ArrayList<ArrayList<Integer>>();
+			for (int j = (int)position.getY()-y;j < position.getY()+y;j++){
+				ArrayList<Integer> tempRow = (ArrayList<Integer>) Arr.get(i).get(j).subList((int)position.getX()-x, (int)position.getX()+x);
+				tempArr.add(tempRow);
+			}
+			ret.add(tempArr);
+		}
 		return ret;
 	}
 
@@ -80,6 +87,7 @@ public class j3dPerson{
 		KeyUpdate();
 		j3dMain.setViewt3d(viewt3d);
 		j3dMain.setViewTG(viewTrans);
+		//getLocalCollArr(collisionCoords,6,6,6);
 	}
 	
 	public void checkCollisions(){
@@ -176,67 +184,42 @@ public class j3dPerson{
 		
 	
 	public void movePerson(int dim, double scale, int yDims){
-		boolean checkNext;
-		switch(dim){
-		case 1:
-			Vector3d nextMovement = new Vector3d(playerCoords.getX()+Math.cos(viewCircleTheta)*scale*3,playerCoords.getY(),
+		boolean checkNext = false;
+		Vector3d nextMovement;
+		Vector3d collNext;
+		boolean inBounds;
+		if(dim == 1){
+			nextMovement = new Vector3d(playerCoords.getX()+Math.cos(viewCircleTheta)*scale*3,playerCoords.getY(),
 			playerCoords.getZ()+Math.sin(viewCircleTheta)*scale*3);
-			Vector3d collNext = getCollPos(nextMovement);
-			try{
-				 if(Arr.get((int) collNext.getZ()).get((int) ((yDims-1)-collNext.getY())).get((int) collNext.getX())!=0){
-			    	checkNext = false;
-			    }
-			    else{
-			    	checkNext = true;
-			    }	
-			}
-			catch(IndexOutOfBoundsException e){
-				checkNext = true;
-			}
-			if(checkNext){	
+		}else{
+			nextMovement = new Vector3d(playerCoords.getX()-Math.sin(viewCircleTheta)*scale*3,playerCoords.getY(),
+			playerCoords.getZ()+Math.cos(viewCircleTheta)*scale*3);
+		}
+		collNext = getCollPos(nextMovement);
+		inBounds = collNext.getZ() <= Arr.size() && collNext.getZ() > 0 &&
+				collNext.getY() <= Arr.get(0).size() && collNext.getY() > 0&&
+				collNext.getX() <= Arr.get(0).get(0).size() && collNext.getX() > 0;
+		if(inBounds){
+			if(Arr.get((int) collNext.getZ()).get((int) ((yDims-1)-collNext.getY())).get((int) collNext.getX())!=0){
+		    	checkNext = false;
+		    }
+		    else{
+		    	checkNext = true;
+		    }
+		}else{
+			checkNext = true;
+		}
+		if(checkNext){
+			if(dim == 1){
 				playerCoords.add(new Point3d(Math.cos((viewCircleTheta))*scale,0,Math.sin((viewCircleTheta))*scale));
-				viewt3d.lookAt(playerCoords, playerLookAt, playerUp);
-				viewt3d.invert();
-				viewt3d.setTranslation(new Vector3d(playerCoords.getX(),playerCoords.getY(),playerCoords.getZ()));
-				viewTrans.setTransform(viewt3d);	
+			}else{
+				playerCoords.add(new Point3d(-Math.sin((viewCircleTheta))*scale,0,Math.cos((viewCircleTheta))*scale));
 			}
-			break;
-		
-		case 3:
-			
-			Vector3d nextMovement2 = new Vector3d(playerCoords.getX()-Math.sin(viewCircleTheta)*scale*3,playerCoords.getY(),
-					playerCoords.getZ()+Math.cos(viewCircleTheta)*scale*3);
-					Vector3d collNext2 = getCollPos(nextMovement2);
-					
-					
-				
-					try{
-						
-						 if(Arr.get((int) collNext2.getZ()).get((int) ((yDims-1)-collNext2.getY())).get((int) collNext2.getX())!=0){
-					    	checkNext = false;
-					    }
-					    else{
-					    	checkNext = true;
-					    }	
-					}
-					catch(IndexOutOfBoundsException e){
-						checkNext = true;
-					}
-			
-					
-					if(checkNext){
-					
-						
-						playerCoords.add(new Point3d(-Math.sin((viewCircleTheta))*scale,0,Math.cos((viewCircleTheta))*scale));
-						viewt3d.lookAt(playerCoords, playerLookAt, playerUp);
-						viewt3d.invert();
-						viewt3d.setTranslation(new Vector3d(playerCoords.getX(),playerCoords.getY(),playerCoords.getZ()));
-						viewTrans.setTransform(viewt3d);
-						
-					}
-			break;
-			}
-		
+			viewt3d.lookAt(playerCoords, playerLookAt, playerUp);
+			viewt3d.invert();
+			viewt3d.setTranslation(new Vector3d(playerCoords.getX(),playerCoords.getY(),playerCoords.getZ()));
+			viewTrans.setTransform(viewt3d);				
+		}	
 	}
 	
 	public ArrayList<ArrayList<ArrayList<Integer>>> getCollisionArr(){return Arr;}
