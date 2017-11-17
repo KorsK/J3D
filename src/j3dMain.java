@@ -1,10 +1,12 @@
 
 import java.awt.BorderLayout;
+
 import java.awt.GraphicsConfiguration;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.media.j3d.Background;
@@ -76,7 +78,6 @@ public class j3dMain extends JFrame implements KeyListener{
 		
 		viewTG = viewP.getViewPlatformTransform();
 		viewt3d = new Transform3D();
-		
 		BufferedImage bg= ImageIO.read(new File("res/stars.jpg"));
 		ImageComponent2D img2d = new ImageComponent2D(1,bg);
 		Background back = new Background(img2d);
