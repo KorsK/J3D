@@ -35,11 +35,11 @@ public class j3dPerson{
 	private ArrayList<ArrayList<ArrayList<Integer>>> Arr;
 	
 	
-	public j3dPerson(ViewingPlatform vP, int x,int y,int z){
+	public j3dPerson(ViewingPlatform vP, j3dLoadMap map, int x,int y,int z){
 		
 		dy = 0;
 		maxY = 1.0;
-		Arr = j3dLoadMap.getColl();
+		Arr = map.getColl();
 		jumping = alreadyJumped = false;
 		xDim = x;
 		yDim = y;
@@ -190,9 +190,9 @@ public class j3dPerson{
 			playerCoords.getZ()+Math.cos(viewCircleTheta)*scale*3);
 		}
 		collNext = getCollPos(nextMovement);
-		inBounds = collNext.getZ() <= Arr.size() && collNext.getZ() > 0 &&
-				collNext.getY() <= Arr.get(0).size() && collNext.getY() > 0&&
-				collNext.getX() <= Arr.get(0).get(0).size() && collNext.getX() > 0;
+		inBounds = collNext.getZ() < Arr.size() && collNext.getZ() > 0 &&
+				collNext.getY() < Arr.get(0).size() && collNext.getY() > 0&&
+				collNext.getX() <Arr.get(0).get(0).size() && collNext.getX() > 0;
 		if(inBounds){
 			if(Arr.get((int) collNext.getZ()).get((int) ((yDims-1)-collNext.getY())).get((int) collNext.getX())!=0){
 		    	checkNext = false;

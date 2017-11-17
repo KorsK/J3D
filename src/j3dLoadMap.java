@@ -17,10 +17,12 @@ import com.sun.j3d.utils.geometry.Box;
 
 public class j3dLoadMap {
 	
-	private static ArrayList<ArrayList<ArrayList<Integer>>> collArr;
-	private static j3dAppearance grassApp;
+	private ArrayList<ArrayList<ArrayList<Integer>>> collArr;
+	private j3dAppearance grassApp;
 
-	public  static void loadHills(int xDim, int yDim, int zDim, int Hills, double HeightMean, double HeightDeviation, double SlopeMean,
+	public j3dLoadMap(){}
+	
+	public void loadHills(int xDim, int yDim, int zDim, int Hills, double HeightMean, double HeightDeviation, double SlopeMean,
 			double SlopeDeviation, double RadMean, double RadDeviation, 
 			double ovalMean, double ovalDeviation,double deltaSLMean, double deltaSLDeviation, BranchGroup group) throws IOException{
 		
@@ -165,10 +167,10 @@ public class j3dLoadMap {
 		}	
 	}
 	
-	public static void loadSet(int xDims, int yDims, int zDims,BranchGroup group) throws Exception {
+	public void loadSet(int xDims, int yDims, int zDims,BranchGroup group) throws Exception {
 		
 		collArr = new ArrayList<ArrayList<ArrayList<Integer>>>();
-		
+	
 		Color3f black = new Color3f(0.0f,0.0f,0.0f);
 		Color3f red = new Color3f(0.9f,0.2f,0.2f);
 		Color3f green = new Color3f(0.0f,0.5f,0.0f);
@@ -178,8 +180,8 @@ public class j3dLoadMap {
 		j3dAppearance leavesApp = new j3dAppearance(green,green,green,green,1f, "res/leavesTex.png");
 		
 		FileReader fr;
-	
-		fr = new FileReader(new File("res/mapGrid"));
+
+		fr = new FileReader(getClass().getResource("res/mapGrid").getFile());
 		BufferedReader br = new BufferedReader(fr);
 		
 		String s;
@@ -191,6 +193,9 @@ public class j3dLoadMap {
 		while(setMapLines.contains("-")){
 			setMapLines.remove("-");
 		}
+		fr.close();
+		br.close();
+
 		for(int z = 0; z < zDims; z++){
 			ArrayList<ArrayList<Integer>> setMapGrid = zero2dArr(xDims,yDims);
 			for(int y = 0; y < yDims; y++){
@@ -203,7 +208,6 @@ public class j3dLoadMap {
 			collArr.add(setMapGrid);
 			//setMapLines.remove(0);
 		}
-		
 		for(int z = 0; z < zDims; z++){
 			for(int y = 0; y < yDims; y++){
 				for(int x = 0; x < xDims; x++){
@@ -278,7 +282,7 @@ public class j3dLoadMap {
 		return endArr2d;
 	}
 	
-	public static ArrayList<ArrayList<ArrayList<Integer>>> getColl(){return collArr;}
-	public static j3dAppearance getGrassApp(){return grassApp;}
+	public ArrayList<ArrayList<ArrayList<Integer>>> getColl(){return collArr;}
+	public j3dAppearance getGrassApp(){return grassApp;}
 	
 }
