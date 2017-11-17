@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.media.j3d.Background;
@@ -124,8 +123,8 @@ public class j3dMain extends JFrame implements KeyListener{
 	public j3dPerson getPerson(){return player;}
 	
 	public static void main(String[] args) throws Exception {
-		//j3dMain frame = new j3dMain(50,50,50,j3dMain.LOADHILLS);
-		j3dMain frame = new j3dMain(30,7,5,j3dMain.LOADSET);
+		j3dMain frame = new j3dMain(50,50,50,j3dMain.LOADHILLS);
+		//j3dMain frame = new j3dMain(30,7,5,j3dMain.LOADSET);
 		frame.setSize(500,500);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
