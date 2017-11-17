@@ -25,7 +25,7 @@ public class j3dAppearance {
 	
 	public j3dAppearance(Color3f col1, Color3f col2, Color3f col3, Color3f col4, float shiny, String file) throws IOException{
 		app = new Appearance();
-		br = ImageIO.read(new File(file));
+		br= ImageIO.read(new File(getClass().getResource(file).getFile()));
 		loader = new TextureLoader(br);
 		texture = loader.getTexture();
 		TextureAttributes texAttr = new TextureAttributes();

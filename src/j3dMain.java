@@ -76,10 +76,8 @@ public class j3dMain extends JFrame implements KeyListener{
 		
 		viewTG = viewP.getViewPlatformTransform();
 		viewt3d = new Transform3D();
-		URL url = getClass().getResource("stars.jpg");
-		System.out.println(url);
-		BufferedImage bg= ImageIO.read(new File("res/stars.jpg"));
-		ImageComponent2D img2d = new ImageComponent2D(1,bg);
+		BufferedImage bg1= ImageIO.read(new File(getClass().getResource("res/stars.jpg").getFile()));
+		ImageComponent2D img2d = new ImageComponent2D(1,bg1);
 		Background back = new Background(img2d);
 		
 		BoundingSphere bgSphere = new BoundingSphere(new Point3d(0,0,0), 10000f);
