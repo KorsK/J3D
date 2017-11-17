@@ -16,20 +16,20 @@ import com.sun.j3d.utils.image.TextureLoader;
 
 public class j3dAppearance {
 
-	Appearance app;
-	TextureLoader loader;
-	Texture texture;
-	int primflags;
+	private Appearance app;
+	private TextureLoader loader;
+	private Texture texture;
+	private int primflags;
+	private BufferedImage br;
 	
 	public j3dAppearance(Color3f col1, Color3f col2, Color3f col3, Color3f col4, float shiny, String file) throws IOException{
 		app = new Appearance();
-		BufferedImage br = ImageIO.read(new File(file));
+		br = ImageIO.read(new File(file));
 		loader = new TextureLoader(br);
 		texture = loader.getTexture();
 		TextureAttributes texAttr = new TextureAttributes();
 		texAttr.setTextureMode(TextureAttributes.MODULATE);
 		primflags = Primitive.GENERATE_NORMALS + Primitive.GENERATE_TEXTURE_COORDS;
-		
 		app.setMaterial(new Material(col1,col2,col3,col4,shiny));
 		app.setTexture(texture);
 		app.setTextureAttributes(texAttr);
@@ -44,5 +44,8 @@ public class j3dAppearance {
 		return primflags;
 	}
 	
+	public BufferedImage getImage(){
+		return br;
+	}
 	
 }

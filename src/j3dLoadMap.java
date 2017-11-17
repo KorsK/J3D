@@ -17,6 +17,7 @@ import com.sun.j3d.utils.geometry.Box;
 public class j3dLoadMap {
 	
 	private static ArrayList<ArrayList<ArrayList<Integer>>> collArr;
+	private static j3dAppearance grassApp;
 
 	public  static void loadHills(int xDim, int yDim, int zDim, int Hills, double HeightMean, double HeightDeviation, double SlopeMean,
 			double SlopeDeviation, double RadMean, double RadDeviation, 
@@ -31,8 +32,7 @@ public class j3dLoadMap {
 		//NormalDistribution ovalDist = new NormalDistribution(ovalMean, ovalDeviation);
 		
 		Color3f green = new Color3f(0f,0.5f,0f);
-		
-		j3dAppearance grassApp = new j3dAppearance(green,green,green,green,1f, "res/grassTex.png");
+		grassApp = new j3dAppearance(green,green,green,green,1f, "res/grassTex.png");
 		
 		int hNum = Hills;
 		ArrayList <ArrayList<Integer>> mapGrid = new ArrayList<ArrayList<Integer>>();
@@ -278,5 +278,6 @@ public class j3dLoadMap {
 	}
 	
 	public static ArrayList<ArrayList<ArrayList<Integer>>> getColl(){return collArr;}
+	public static j3dAppearance getGrassApp(){return grassApp;}
 	
 }
