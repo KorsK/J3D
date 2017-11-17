@@ -29,13 +29,13 @@ public class j3dPerson{
 	private ArrayList<Integer> keyArr = new ArrayList<Integer>();
 	private keyRemove<Integer> filter = new keyRemove<Integer>();
 	private boolean collision, jumping, alreadyJumped;
-	private int yDim;
+	private int xDim,yDim,zDim;
 	private double dy, maxY;
 	private ArrayList<ArrayList<ArrayList<Integer>>> Arr;
 	
 	private boolean robotActive,cameraActive;
 	
-	public j3dPerson(ViewingPlatform vP, int y, boolean robotActive,boolean cameraActive){
+	public j3dPerson(ViewingPlatform vP, int x,int y,int z, boolean robotActive,boolean cameraActive){
 		
 		dy = 0;
 		maxY = 1.0;
@@ -43,14 +43,16 @@ public class j3dPerson{
 		this.cameraActive = cameraActive;
 		Arr = j3dLoadMap.getColl();
 		jumping = alreadyJumped = false;
+		xDim = x;
 		yDim = y;
+		zDim = z;
 		try {
 			r = new Robot();
 		} catch (AWTException e) {}
 		
 		sensitivityX=sensitivityY=20;
 		
-		playerCoords = new Point3d(10,100,10);
+		playerCoords = new Point3d(xDim/2,yDim/2,zDim/2);
 		playerLookAt = new Point3d(0,0,0);
 		playerUp = new Vector3d(0,1,0);
 		collisionCoords = new Vector3d();
