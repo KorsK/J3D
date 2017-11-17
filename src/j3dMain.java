@@ -32,7 +32,7 @@ public class j3dMain extends JFrame implements KeyListener{
 	
 	private SimpleUniverse u;
 	private BranchGroup g;
-	private boolean running,robotActive,cameraActive;
+	private boolean running;
 	private Viewer viewer;
 	private View view;
 	private ViewingPlatform viewP;
@@ -45,7 +45,7 @@ public class j3dMain extends JFrame implements KeyListener{
 	private int loadType;
 	
 	
-	public j3dMain(int x, int y, int z, int loadType, boolean robotActive,boolean cameraActive) throws Exception{
+	public j3dMain(int x, int y, int z, int loadType) throws Exception{
 		
 		super();
 		xDim = x;
@@ -53,8 +53,6 @@ public class j3dMain extends JFrame implements KeyListener{
 		zDim = z;
 		this.loadType = loadType;
 		running = true;
-		this.robotActive = robotActive;
-		this.cameraActive = cameraActive;
 		Thread t1 = new Thread(new running());
 		t1.start();
 		init();
@@ -78,6 +76,8 @@ public class j3dMain extends JFrame implements KeyListener{
 		
 		viewTG = viewP.getViewPlatformTransform();
 		viewt3d = new Transform3D();
+		URL url = getClass().getResource("stars.jpg");
+		System.out.println(url);
 		BufferedImage bg= ImageIO.read(new File("res/stars.jpg"));
 		ImageComponent2D img2d = new ImageComponent2D(1,bg);
 		Background back = new Background(img2d);
@@ -96,7 +96,7 @@ public class j3dMain extends JFrame implements KeyListener{
 		}else{
 			j3dLoadMap.loadSet(xDim, yDim, zDim, g);
 		}
-		player = new j3dPerson(viewP,xDim,yDim,zDim,robotActive,cameraActive);
+		player = new j3dPerson(viewP,xDim,yDim,zDim);
 		u.addBranchGraph(g);
 		
 	}
@@ -125,7 +125,7 @@ public class j3dMain extends JFrame implements KeyListener{
 	public j3dPerson getPerson(){return player;}
 	
 	public static void main(String[] args) throws Exception {
-		j3dMain frame = new j3dMain(50,50,50,j3dMain.LOADHILLS,true,true);
+		j3dMain frame = new j3dMain(50,50,50,j3dMain.LOADHILLS);
 		//j3dMain frame = new j3dMain();
 		frame.setSize(500,500);
 		frame.setVisible(true);

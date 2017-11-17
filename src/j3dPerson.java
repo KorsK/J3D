@@ -34,14 +34,11 @@ public class j3dPerson{
 	private double dy, maxY;
 	private ArrayList<ArrayList<ArrayList<Integer>>> Arr;
 	
-	private boolean robotActive,cameraActive;
 	
-	public j3dPerson(ViewingPlatform vP, int x,int y,int z, boolean robotActive,boolean cameraActive){
+	public j3dPerson(ViewingPlatform vP, int x,int y,int z){
 		
 		dy = 0;
 		maxY = 1.0;
-		this.robotActive = robotActive;
-		this.cameraActive = cameraActive;
 		Arr = j3dLoadMap.getColl();
 		jumping = alreadyJumped = false;
 		xDim = x;
@@ -53,7 +50,7 @@ public class j3dPerson{
 		
 		sensitivityX=sensitivityY=20;
 		
-		playerCoords = new Point3d(xDim/2,yDim/2,zDim/2);
+		playerCoords = new Point3d(xDim/2,yDim,zDim/2);
 		playerLookAt = new Point3d(0,0,0);
 		playerUp = new Vector3d(0,1,0);
 		collisionCoords = new Vector3d();
@@ -83,10 +80,7 @@ public class j3dPerson{
 		collisionCoords.set((int)(playerCoords.getX()+1)/2,(int) (playerCoords.getY()-2)/2, (int)(playerCoords.getZ()+1)/2);
 		checkCollisions();
 		YUpdate();
-		if(cameraActive){
-			viewUpdate();
-		}
-		
+		viewUpdate();
 		KeyUpdate();
 		j3dMain.setViewt3d(viewt3d);
 		j3dMain.setViewTG(viewTrans);
@@ -141,10 +135,7 @@ public class j3dPerson{
 		
 		mouseY = MouseInfo.getPointerInfo().getLocation().y;
 		mouseX = MouseInfo.getPointerInfo().getLocation().x;
-		if(robotActive){
-			r.mouseMove(200, 200);
-		}
-
+		r.mouseMove(200, 200);
 		double deltaX = (mouseX-200) / sensitivityX;
 		double deltaY = (mouseY-200) / sensitivityY;
 		
