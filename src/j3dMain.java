@@ -42,15 +42,16 @@ public class j3dMain extends JFrame implements KeyListener{
 	private static TransformGroup viewTG;
 	private int xDim,yDim,zDim;
 	private int loadType;
+	private boolean thirdPerson;
 	
-	
-	public j3dMain(int x, int y, int z, int loadType) throws Exception{
+	public j3dMain(int x, int y, int z, int loadType,boolean thirdPerson) throws Exception{
 		
 		super();
 		xDim = x;
 		yDim = y;
 		zDim = z;
 		this.loadType = loadType;
+		this.thirdPerson = thirdPerson;
 		running = true;
 		Thread t1 = new Thread(new running());
 		t1.start();
@@ -94,7 +95,7 @@ public class j3dMain extends JFrame implements KeyListener{
 		}else{
 			map.loadSet(xDim, yDim, zDim, g);
 		}
-		player = new j3dPerson(viewP,map,xDim,yDim,zDim);
+		player = new j3dPerson(viewP,map,xDim,yDim,zDim,thirdPerson);
 		u.addBranchGraph(g);
 		
 	}
@@ -123,7 +124,7 @@ public class j3dMain extends JFrame implements KeyListener{
 	public j3dPerson getPerson(){return player;}
 	
 	public static void main(String[] args) throws Exception {
-		j3dMain frame = new j3dMain(50,50,50,j3dMain.LOADHILLS);
+		j3dMain frame = new j3dMain(50,50,50,j3dMain.LOADHILLS,false);
 		//j3dMain frame = new j3dMain(30,7,5,j3dMain.LOADSET);
 		frame.setSize(500,500);
 		frame.setVisible(true);

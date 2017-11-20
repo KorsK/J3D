@@ -33,9 +33,10 @@ public class j3dPerson{
 	private int xDim,yDim,zDim;
 	private double dy, maxY;
 	private ArrayList<ArrayList<ArrayList<Integer>>> Arr;
+	private boolean isThirdPerson;
 	
 	
-	public j3dPerson(ViewingPlatform vP, j3dLoadMap map, int x,int y,int z){
+	public j3dPerson(ViewingPlatform vP, j3dLoadMap map, int x,int y,int z,boolean ThirdP){
 		
 		dy = 0;
 		maxY = 1.0;
@@ -54,6 +55,7 @@ public class j3dPerson{
 		playerLookAt = new Point3d(0,0,0);
 		playerUp = new Vector3d(0,1,0);
 		collisionCoords = new Vector3d();
+		isThirdPerson = ThirdP;
 		
 		viewCircleTheta = 0;
 		upCircleTheta = 0;
@@ -80,7 +82,11 @@ public class j3dPerson{
 		collisionCoords.set((int)(playerCoords.getX()+1)/2,(int) (playerCoords.getY()-2)/2, (int)(playerCoords.getZ()+1)/2);
 		checkCollisions();
 		YUpdate();
-		viewUpdate();
+		if(isThirdPerson){
+			viewUpdate3P();
+		}else{
+			viewUpdate();
+		}
 		KeyUpdate();
 		j3dMain.setViewt3d(viewt3d);
 		j3dMain.setViewTG(viewTrans);
@@ -163,6 +169,13 @@ public class j3dPerson{
 		
 		playerLookAt.set(XViewMove,YViewMove, ZViewMove);
 		viewt3d.lookAt(playerCoords, playerLookAt, playerUp);
+		viewt3d.invert();
+		viewTrans.setTransform(viewt3d);
+	}
+	
+	public void viewUpdate3P(){
+		playerLookAt.set(playerCoords.x, playerCoords.y, playerCoords.z);
+		viewt3d.lookAt(new Point3d(playerCoords.x-10,playerCoords.y+10,playerCoords.z), playerLookAt, playerUp);
 		viewt3d.invert();
 		viewTrans.setTransform(viewt3d);
 	}
