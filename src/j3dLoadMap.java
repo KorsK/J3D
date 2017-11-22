@@ -164,7 +164,9 @@ public class j3dLoadMap {
 		}	
 	}
 	
-	public void loadSet(int xDims, int yDims, int zDims,BranchGroup group) throws Exception {
+	public void loadSet(BranchGroup group) throws Exception {
+		
+		int xDims = 0;int yDims = 0; int zDims = 0;
 		
 		collArr = new ArrayList<ArrayList<ArrayList<Integer>>>();
 	
@@ -184,15 +186,19 @@ public class j3dLoadMap {
 		String s;
 		ArrayList<String> setMapLines = new ArrayList<String>();
 		while((s = br.readLine())!=null){
+			xDims = s.length();
+			yDims++;
 			setMapLines.add(s); 
 		}
 		br.close();
 		while(setMapLines.contains("-")){
+			zDims ++;
+			yDims--;
 			setMapLines.remove("-");
 		}
 		fr.close();
-		br.close();
-
+		yDims/=zDims;
+		
 		for(int z = 0; z < zDims; z++){
 			ArrayList<ArrayList<Integer>> setMapGrid = zero2dArr(xDims,yDims);
 			for(int y = 0; y < yDims; y++){

@@ -95,7 +95,7 @@ public class j3dMain extends JFrame implements KeyListener{
 		if(loadType == LOADHILLS){
 			map.loadHills(xDim,yDim,zDim, 25, 10, 5, 1, 3, 3, 3, 1, 1, 1, 1, g);
 		}else{
-			map.loadSet(xDim, yDim, zDim, g);
+			map.loadSet(g);
 		}
 		player = new j3dPerson(viewP,map,xDim,yDim,zDim,thirdPerson,g);
 		u.addBranchGraph(g);
