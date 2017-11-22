@@ -18,7 +18,9 @@ import javax.media.j3d.TransformGroup;
 import javax.media.j3d.View;
 import javax.swing.JFrame;
 import javax.vecmath.Point3d;
+import javax.vecmath.Vector3d;
 
+import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import com.sun.j3d.utils.universe.Viewer;
 import com.sun.j3d.utils.universe.ViewingPlatform;
@@ -95,7 +97,7 @@ public class j3dMain extends JFrame implements KeyListener{
 		}else{
 			map.loadSet(xDim, yDim, zDim, g);
 		}
-		player = new j3dPerson(viewP,map,xDim,yDim,zDim,thirdPerson);
+		player = new j3dPerson(viewP,map,xDim,yDim,zDim,thirdPerson,g);
 		u.addBranchGraph(g);
 		
 	}
@@ -120,6 +122,7 @@ public class j3dMain extends JFrame implements KeyListener{
 	public static void setViewTG(TransformGroup newTG){
 		viewTG = newTG;
 	}
+	
 	
 	public j3dPerson getPerson(){return player;}
 	

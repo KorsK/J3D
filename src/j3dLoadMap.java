@@ -150,7 +150,6 @@ public class j3dLoadMap {
 					
 					if(collArr.get(z).get(y).get(x)==1){
 						Box b = new Box(1,1,1,grassApp.getFlags(),grassApp.getApp());
-				
 						Transform3D boxTrans = new Transform3D();
 						boxTrans.setTranslation(new Vector3d(x*2,2*(yDim-y),2*z));
 						

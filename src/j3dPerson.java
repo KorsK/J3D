@@ -7,11 +7,13 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
+import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 
+import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.universe.ViewingPlatform;
 
 
@@ -34,9 +36,12 @@ public class j3dPerson{
 	private double dy, maxY;
 	private ArrayList<ArrayList<ArrayList<Integer>>> Arr;
 	private boolean isThirdPerson;
+	private BranchGroup group;
+	private Sphere ThirdPersonSphere;
+	private TransformGroup sphereTrans;
+	private Transform3D spheret3d;
 	
-	
-	public j3dPerson(ViewingPlatform vP, j3dLoadMap map, int x,int y,int z,boolean ThirdP){
+	public j3dPerson(ViewingPlatform vP, j3dLoadMap map, int x,int y,int z,boolean ThirdP,BranchGroup group){
 		
 		dy = 0;
 		maxY = 1.0;
@@ -56,9 +61,20 @@ public class j3dPerson{
 		playerUp = new Vector3d(0,1,0);
 		collisionCoords = new Vector3d();
 		isThirdPerson = ThirdP;
+		this.group = group;
+	
 		
-		viewCircleTheta = 0;
-		upCircleTheta = 0;
+		
+		if(isThirdPerson){
+			viewCircleTheta = Math.PI/2;
+			upCircleTheta = 0;
+			initSphere();
+		}else{
+			viewCircleTheta = 0;
+			upCircleTheta = 0;
+		}
+		
+	
 		viewCircleLength = Math.abs(playerCoords.getZ() - playerLookAt.getZ());
 		
 		viewTrans = vP.getViewPlatformTransform();
@@ -93,10 +109,20 @@ public class j3dPerson{
 		//getLocalCollArr(collisionCoords,6,6,6);
 	}
 	
+	public void initSphere(){
+		ThirdPersonSphere = new Sphere(2);
+		spheret3d = new Transform3D();
+		spheret3d.setTranslation(new Vector3d(playerCoords));
+		sphereTrans = new TransformGroup();
+		sphereTrans.setTransform(spheret3d);
+		sphereTrans.addChild(ThirdPersonSphere);
+		group.addChild(sphereTrans);
+	}
+	
 	public void checkCollisions(){
 		try{
 			if(Arr.get((int) collisionCoords.getZ()).get((int) (yDim-collisionCoords.getY())).get((int) collisionCoords.getX())!=0||
-			Arr.get((int) collisionCoords.getZ()).get((int) (yDim-collisionCoords.getY()+1)).get((int) collisionCoords.getX())!=0){
+			Arr.get((int) collisionCoords.getZ()).get((int) (yDim-collisionCoords.getY()-1)).get((int) collisionCoords.getX())!=0){
 				collision = true;
 			}
 			else{
@@ -222,10 +248,16 @@ public class j3dPerson{
 			}else{
 				playerCoords.add(new Point3d(-Math.sin((viewCircleTheta))*scale,0,Math.cos((viewCircleTheta))*scale));
 			}
-			viewt3d.lookAt(playerCoords, playerLookAt, playerUp);
-			viewt3d.invert();
-			viewt3d.setTranslation(new Vector3d(playerCoords.getX(),playerCoords.getY(),playerCoords.getZ()));
-			viewTrans.setTransform(viewt3d);				
+			if(!isThirdPerson){
+				viewt3d.lookAt(playerCoords, playerLookAt, playerUp);
+				viewt3d.invert();
+				viewt3d.setTranslation(new Vector3d(playerCoords.getX(),playerCoords.getY(),playerCoords.getZ()));
+				viewTrans.setTransform(viewt3d);				
+			}else{
+				
+			}
+			
+			
 		}	
 	}
 	
