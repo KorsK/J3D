@@ -182,11 +182,10 @@ public class j3dLoadMap {
 
 		fr = new FileReader(getClass().getResource("res/mapGrid").getFile());
 		BufferedReader br = new BufferedReader(fr);
-		
+		xDims = br.readLine().length();
 		String s;
 		ArrayList<String> setMapLines = new ArrayList<String>();
 		while((s = br.readLine())!=null){
-			xDims = s.length();
 			yDims++;
 			setMapLines.add(s); 
 		}
@@ -197,8 +196,10 @@ public class j3dLoadMap {
 			setMapLines.remove("-");
 		}
 		fr.close();
-		yDims/=zDims;
-		
+		yDims = yDims/zDims;
+		System.out.println(xDims);
+		System.out.println(yDims);
+		System.out.println(zDims);
 		for(int z = 0; z < zDims; z++){
 			ArrayList<ArrayList<Integer>> setMapGrid = zero2dArr(xDims,yDims);
 			for(int y = 0; y < yDims; y++){
