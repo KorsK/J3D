@@ -46,6 +46,7 @@ public class j3dPerson{
 		dy = 0;
 		maxY = 1.0;
 		Arr = map.getColl();
+		System.out.println(Arr);
 		jumping = alreadyJumped = false;
 		xDim = x;
 		yDim = y;
@@ -56,7 +57,7 @@ public class j3dPerson{
 		
 		sensitivityX=sensitivityY=20;
 		
-		playerCoords = new Point3d(xDim/2,yDim,zDim/2);
+		playerCoords = new Point3d(xDim/2,yDim+10,zDim/2);
 		playerLookAt = new Point3d(0,0,0);
 		playerUp = new Vector3d(0,1,0);
 		collisionCoords = new Vector3d();
@@ -120,6 +121,7 @@ public class j3dPerson{
 	}
 	
 	public void checkCollisions(){
+		System.out.println(collisionCoords);
 		try{
 			if(Arr.get((int) collisionCoords.getZ()).get((int) (yDim-collisionCoords.getY())).get((int) collisionCoords.getX())!=0||
 			Arr.get((int) collisionCoords.getZ()).get((int) (yDim-collisionCoords.getY()-1)).get((int) collisionCoords.getX())!=0){

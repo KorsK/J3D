@@ -164,9 +164,7 @@ public class j3dLoadMap {
 		}	
 	}
 	
-	public void loadSet(BranchGroup group) throws Exception {
-		
-		int xDims = 0;int yDims = 0; int zDims = 0;
+	public void loadSet(int xDims,int yDims, int zDims, BranchGroup group) throws Exception {
 		
 		collArr = new ArrayList<ArrayList<ArrayList<Integer>>>();
 	
@@ -179,27 +177,18 @@ public class j3dLoadMap {
 		j3dAppearance leavesApp = new j3dAppearance(green,green,green,green,1f, "res/leavesTex.png");
 		
 		FileReader fr;
-
 		fr = new FileReader(getClass().getResource("res/mapGrid").getFile());
 		BufferedReader br = new BufferedReader(fr);
-		xDims = br.readLine().length();
 		String s;
 		ArrayList<String> setMapLines = new ArrayList<String>();
 		while((s = br.readLine())!=null){
-			yDims++;
 			setMapLines.add(s); 
 		}
 		br.close();
 		while(setMapLines.contains("-")){
-			zDims ++;
-			yDims--;
 			setMapLines.remove("-");
 		}
 		fr.close();
-		yDims = yDims/zDims;
-		System.out.println(xDims);
-		System.out.println(yDims);
-		System.out.println(zDims);
 		for(int z = 0; z < zDims; z++){
 			ArrayList<ArrayList<Integer>> setMapGrid = zero2dArr(xDims,yDims);
 			for(int y = 0; y < yDims; y++){
@@ -210,7 +199,6 @@ public class j3dLoadMap {
 				setMapLines.remove(0);
 			}
 			collArr.add(setMapGrid);
-			//setMapLines.remove(0);
 		}
 		for(int z = 0; z < zDims; z++){
 			for(int y = 0; y < yDims; y++){
