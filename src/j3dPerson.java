@@ -46,7 +46,6 @@ public class j3dPerson{
 		dy = 0;
 		maxY = 1.0;
 		Arr = map.getColl();
-		System.out.println(Arr);
 		jumping = alreadyJumped = false;
 		xDim = x;
 		yDim = y;
@@ -107,7 +106,10 @@ public class j3dPerson{
 		KeyUpdate();
 		j3dMain.setViewt3d(viewt3d);
 		j3dMain.setViewTG(viewTrans);
-		//getLocalCollArr(collisionCoords,6,6,6);
+		ArrayList<ArrayList<ArrayList<Integer>>> a =getLocalCollArr(collisionCoords,3,2,3);
+		System.out.println("D");
+		System.out.println(getLocalCollArr(collisionCoords,2,2,2));
+		System.out.println(a);
 	}
 	
 	public void initSphere(){
@@ -121,7 +123,6 @@ public class j3dPerson{
 	}
 	
 	public void checkCollisions(){
-		System.out.println(collisionCoords);
 		try{
 			if(Arr.get((int) collisionCoords.getZ()).get((int) (yDim-collisionCoords.getY())).get((int) collisionCoords.getX())!=0||
 			Arr.get((int) collisionCoords.getZ()).get((int) (yDim-collisionCoords.getY()-1)).get((int) collisionCoords.getX())!=0){
