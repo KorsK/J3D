@@ -127,7 +127,7 @@ public class j3dMain extends JFrame implements KeyListener{
 	public j3dPerson getPerson(){return player;}
 	
 	public static void main(String[] args) throws Exception {
-		j3dMain frame = new j3dMain(50,50,50,j3dMain.LOADHILLS,false);
+		j3dMain frame = new j3dMain(50,50,50,j3dMain.LOADHILLS,true);
 		//j3dMain frame = new j3dMain(30,7,5,j3dMain.LOADSET);
 		frame.setSize(500,500);
 		frame.setVisible(true);

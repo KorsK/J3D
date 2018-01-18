@@ -5,6 +5,7 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javax.media.j3d.BranchGroup;
@@ -86,11 +87,19 @@ public class j3dPerson{
 		for (int i = (int)position.getZ()-z;i < position.getZ()+z;i++){
 			ArrayList<ArrayList<Integer>> tempArr = new ArrayList<ArrayList<Integer>>();
 			for (int j = (int)position.getY()-y;j < position.getY()+y;j++){
-				ArrayList<Integer> tempRow = (ArrayList<Integer>) Arr.get(i).get(j).subList((int)position.getX()-x, (int)position.getX()+x);
+				ArrayList<Integer> tempRow = new ArrayList<Integer>();
+				for(int k = (int)position.getX()-x;k < position.getX()+x;k++){
+					int val = 0;
+					try{
+						val = Arr.get(i).get(j).get(k);
+					}catch (IndexOutOfBoundsException e){val = 0;}
+					tempRow.add(val);
+				}
 				tempArr.add(tempRow);
 			}
 			ret.add(tempArr);
 		}
+		System.out.println(ret);
 		return ret;
 	}
 
@@ -107,9 +116,6 @@ public class j3dPerson{
 		j3dMain.setViewt3d(viewt3d);
 		j3dMain.setViewTG(viewTrans);
 		ArrayList<ArrayList<ArrayList<Integer>>> a =getLocalCollArr(collisionCoords,3,2,3);
-		System.out.println("D");
-		System.out.println(getLocalCollArr(collisionCoords,2,2,2));
-		System.out.println(a);
 	}
 	
 	public void initSphere(){
