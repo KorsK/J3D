@@ -109,21 +109,24 @@ public class j3dPerson{
 		collisionCoords.set((int)(playerCoords.getX()+1)/2,(int) (playerCoords.getY()-2)/2, (int)(playerCoords.getZ()+1)/2);
 		checkCollisions();
 		YUpdate();
+		KeyUpdate();
 		if(isThirdPerson){
 			viewUpdate3P();
+			spheret3d.setTranslation(new Vector3d(playerCoords));
+			sphereTrans.setTransform(spheret3d);
 		}else{
 			viewUpdate();
 		}
-		KeyUpdate();
 		j3dMain.setViewt3d(viewt3d);
 		j3dMain.setViewTG(viewTrans);
 	}
 	
 	public void initSphere(){
-		ThirdPersonSphere = new Sphere(2);
+		ThirdPersonSphere = new Sphere(1.5f);
 		spheret3d = new Transform3D();
 		spheret3d.setTranslation(new Vector3d(playerCoords));
 		sphereTrans = new TransformGroup();
+		sphereTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
 		sphereTrans.setTransform(spheret3d);
 		sphereTrans.addChild(ThirdPersonSphere);
 		group.addChild(sphereTrans);
