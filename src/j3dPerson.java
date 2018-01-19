@@ -90,16 +90,18 @@ public class j3dPerson{
 				ArrayList<Integer> tempRow = new ArrayList<Integer>();
 				for(int k = (int)position.getX()-x;k < position.getX()+x;k++){
 					int val = 0;
+					
 					try{
-						val = Arr.get(i).get(j).get(k);
-					}catch (IndexOutOfBoundsException e){val = 0;}
+						val = Arr.get(i).get(yDim-j).get(k);
+					}catch (IndexOutOfBoundsException e){
+						val = 0;
+					}
 					tempRow.add(val);
 				}
 				tempArr.add(tempRow);
 			}
 			ret.add(tempArr);
 		}
-		System.out.println(ret);
 		return ret;
 	}
 
@@ -115,7 +117,6 @@ public class j3dPerson{
 		KeyUpdate();
 		j3dMain.setViewt3d(viewt3d);
 		j3dMain.setViewTG(viewTrans);
-		ArrayList<ArrayList<ArrayList<Integer>>> a =getLocalCollArr(collisionCoords,3,2,3);
 	}
 	
 	public void initSphere(){
