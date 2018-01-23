@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GraphicsConfiguration;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -26,11 +28,12 @@ import com.sun.j3d.utils.universe.Viewer;
 import com.sun.j3d.utils.universe.ViewingPlatform;
 
 @SuppressWarnings("serial")
-public class j3dMain extends JFrame implements KeyListener{
+public class j3dMain extends JFrame implements KeyListener, MouseListener{
 
 	public static final int LOADSET = 0;
 	public static final int LOADHILLS = 1;
 	
+	private boolean onScreen;
 	private SimpleUniverse u;
 	private BranchGroup g;
 	private boolean running;
@@ -54,6 +57,7 @@ public class j3dMain extends JFrame implements KeyListener{
 		zDim = z;
 		this.loadType = loadType;
 		this.thirdPerson = thirdPerson;
+		onScreen = false;
 		running = true;
 		Thread t1 = new Thread(new running());
 		t1.start();
@@ -89,6 +93,7 @@ public class j3dMain extends JFrame implements KeyListener{
 		
 		u = new SimpleUniverse(viewP,viewer);
 		u.getCanvas().addKeyListener(this);
+		u.getCanvas().addMouseListener(this);
 		g = new BranchGroup();
 		
 		j3dLoadMap map = new j3dLoadMap();
@@ -128,7 +133,7 @@ public class j3dMain extends JFrame implements KeyListener{
 	
 	public static void main(String[] args) throws Exception {
 		//j3dMain frame = new j3dMain(50,50,50,j3dMain.LOADHILLS,true);
-		j3dMain frame = new j3dMain(30,3,16,j3dMain.LOADSET,true);
+		j3dMain frame = new j3dMain(30,3,16,j3dMain.LOADSET,false);
 		frame.setSize(500,500);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -140,6 +145,11 @@ public class j3dMain extends JFrame implements KeyListener{
 	public void keyPressed(KeyEvent arg0) {
 		if(arg0.getKeyCode() ==KeyEvent.VK_0){
 			System.exit(EXIT_ON_CLOSE);
+		} 
+		if(arg0.getKeyCode() == KeyEvent.VK_ESCAPE){
+			if(player.getCurrMode() == player.LOCKED_MOUSE){
+				player.switchMode();
+			}
 		}
 		player.keyPressed(arg0);
 	}
@@ -152,4 +162,28 @@ public class j3dMain extends JFrame implements KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		onScreen = true;
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		onScreen = false;
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		if(onScreen){
+			player.switchMode();
+		}
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {}
 }

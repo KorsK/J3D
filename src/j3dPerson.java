@@ -19,6 +19,9 @@ import com.sun.j3d.utils.universe.ViewingPlatform;
 
 
 public class j3dPerson{
+	
+	public final int FREE_MOUSE = 0;
+	public final int LOCKED_MOUSE = 1;
 
 	Robot r;
 	private TransformGroup viewTrans;
@@ -41,6 +44,7 @@ public class j3dPerson{
 	private Sphere ThirdPersonSphere;
 	private TransformGroup sphereTrans;
 	private Transform3D spheret3d;
+	private int currentMode;
 	
 	public j3dPerson(ViewingPlatform vP, j3dLoadMap map, int x,int y,int z,boolean ThirdP,BranchGroup group){
 		
@@ -51,6 +55,7 @@ public class j3dPerson{
 		xDim = x;
 		yDim = y;
 		zDim = z;
+		currentMode = LOCKED_MOUSE;
 		try {
 			r = new Robot();
 		} catch (AWTException e) {}
@@ -180,10 +185,14 @@ public class j3dPerson{
 		
 		mouseY = MouseInfo.getPointerInfo().getLocation().y;
 		mouseX = MouseInfo.getPointerInfo().getLocation().x;
-		r.mouseMove(200, 200);
-		double deltaX = (mouseX-200) / sensitivityX;
-		double deltaY = (mouseY-200) / sensitivityY;
+		double deltaX = 0;
+		double deltaY = 0;
 		
+		if(currentMode == LOCKED_MOUSE){
+			r.mouseMove(200, 200);
+			deltaX = (mouseX-200) / sensitivityX;
+			deltaY = (mouseY-200) / sensitivityY;
+		}
 		if(Math.abs(viewCircleTheta)> 2*Math.PI){
 			viewCircleTheta =0;
 		}
@@ -200,16 +209,18 @@ public class j3dPerson{
 		}
 		
 		upCircleTheta -=  (double) (Math.asin((deltaY/viewCircleLength)));
-		
-		
+			
+			
 		double ZViewMove = (viewCircleLength-(viewCircleLength*Math.cos(viewCircleTheta)))+(playerCoords.getZ()-viewCircleLength);
 		double XViewMove = (viewCircleLength*Math.sin(viewCircleTheta))+playerCoords.getX();
 		double YViewMove = (viewCircleLength*Math.sin(upCircleTheta))+playerCoords.getY();
-		
+			
 		playerLookAt.set(XViewMove,YViewMove, ZViewMove);
 		viewt3d.lookAt(playerCoords, playerLookAt, playerUp);
 		viewt3d.invert();
 		viewTrans.setTransform(viewt3d);
+		
+	
 	}
 	
 	public void viewUpdate3P(){
@@ -306,6 +317,16 @@ public class j3dPerson{
 		}
 	}
 
+	public void switchMode(){
+		if(currentMode == FREE_MOUSE){
+			currentMode = LOCKED_MOUSE;
+		}else{
+			currentMode = FREE_MOUSE;
+		}
+	}
+	
+	public int getCurrMode(){return currentMode;}
+	
 	public void KeyUpdate(){
 		
 		if(!(keyArr.size() ==0)){
