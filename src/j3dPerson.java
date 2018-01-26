@@ -19,10 +19,6 @@ import com.sun.j3d.utils.universe.ViewingPlatform;
 
 
 public class j3dPerson{
-	
-	public final int FREE_MOUSE = 0;
-	public final int LOCKED_MOUSE = 1;
-
 	Robot r;
 	private TransformGroup viewTrans;
 	private Transform3D viewt3d;
@@ -44,7 +40,6 @@ public class j3dPerson{
 	private Sphere ThirdPersonSphere;
 	private TransformGroup sphereTrans;
 	private Transform3D spheret3d;
-	private int currentMode;
 	
 	public j3dPerson(ViewingPlatform vP, j3dLoadMap map, int x,int y,int z,boolean ThirdP,BranchGroup group){
 		
@@ -55,7 +50,6 @@ public class j3dPerson{
 		xDim = x;
 		yDim = y;
 		zDim = z;
-		currentMode = LOCKED_MOUSE;
 		try {
 			r = new Robot();
 		} catch (AWTException e) {}
@@ -188,11 +182,11 @@ public class j3dPerson{
 		double deltaX = 0;
 		double deltaY = 0;
 		
-		if(currentMode == LOCKED_MOUSE){
-			r.mouseMove(200, 200);
-			deltaX = (mouseX-200) / sensitivityX;
-			deltaY = (mouseY-200) / sensitivityY;
-		}
+	
+		r.mouseMove(200, 200);
+		deltaX = (mouseX-200) / sensitivityX;
+		deltaY = (mouseY-200) / sensitivityY;
+		
 		if(Math.abs(viewCircleTheta)> 2*Math.PI){
 			viewCircleTheta =0;
 		}
@@ -317,16 +311,7 @@ public class j3dPerson{
 		}
 	}
 
-	public void switchMode(){
-		if(currentMode == FREE_MOUSE){
-			currentMode = LOCKED_MOUSE;
-		}else{
-			currentMode = FREE_MOUSE;
-		}
-	}
-	
-	public int getCurrMode(){return currentMode;}
-	
+
 	public void KeyUpdate(){
 		
 		if(!(keyArr.size() ==0)){
