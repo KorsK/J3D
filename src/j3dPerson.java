@@ -3,7 +3,7 @@ import java.awt.AWTException;
 import java.awt.MouseInfo;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -11,6 +11,7 @@ import java.util.function.Predicate;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 
@@ -81,13 +82,13 @@ public class j3dPerson{
 		viewt3d = new Transform3D();
 	}
 	
-	public ArrayList<ArrayList<ArrayList<Integer>>> getLocalCollArr(Vector3d position,int x,int y, int z){
+	public ArrayList<ArrayList<ArrayList<Integer>>> getLocalCollArr(int size,int x,int y, int z){
 		ArrayList<ArrayList<ArrayList<Integer>>> ret = new ArrayList<ArrayList<ArrayList<Integer>>>();
-		for (int i = (int)position.getZ()-z;i < position.getZ()+z;i++){
+		for (int i = z-size;i < z+size;i++){
 			ArrayList<ArrayList<Integer>> tempArr = new ArrayList<ArrayList<Integer>>();
-			for (int j = (int)position.getY()-y;j < position.getY()+y;j++){
+			for (int j = y-size;j < y+size;j++){
 				ArrayList<Integer> tempRow = new ArrayList<Integer>();
-				for(int k = (int)position.getX()-x;k < position.getX()+x;k++){
+				for(int k = x-size;k < x+size;k++){
 					int val = 0;
 					
 					try{
@@ -121,7 +122,12 @@ public class j3dPerson{
 	}
 	
 	public void initSphere(){
-		ThirdPersonSphere = new Sphere(1.5f);
+		Color3f red = new Color3f(0.5f,0f,0f);
+		j3dAppearance ballApp;
+		try {
+			ballApp = new j3dAppearance(red,red,red,red,1f, "res/leavesTex.png");
+			ThirdPersonSphere = new Sphere(1f,ballApp.getFlags(),ballApp.getApp());
+		} catch (IOException e) {}
 		spheret3d = new Transform3D();
 		spheret3d.setTranslation(new Vector3d(playerCoords));
 		sphereTrans = new TransformGroup();
