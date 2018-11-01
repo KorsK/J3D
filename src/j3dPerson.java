@@ -82,13 +82,13 @@ public class j3dPerson{
 		viewt3d = new Transform3D();
 	}
 	
-	public ArrayList<ArrayList<ArrayList<Integer>>> getLocalCollArr(int size,int x,int y, int z){
+	public ArrayList<ArrayList<ArrayList<Integer>>> getLocalCollArr(int sizeX,int sizeY, int sizeZ,int x,int y, int z){
 		ArrayList<ArrayList<ArrayList<Integer>>> ret = new ArrayList<ArrayList<ArrayList<Integer>>>();
-		for (int i = z-size;i < z+size;i++){
+		for (int i = z-sizeZ;i < z+sizeZ;i++){
 			ArrayList<ArrayList<Integer>> tempArr = new ArrayList<ArrayList<Integer>>();
-			for (int j = y-size;j < y+size;j++){
+			for (int j = y-sizeY;j < y+sizeY;j++){
 				ArrayList<Integer> tempRow = new ArrayList<Integer>();
-				for(int k = x-size;k < x+size;k++){
+				for(int k = x-sizeX;k < x+sizeX;k++){
 					int val = 0;
 					
 					try{
